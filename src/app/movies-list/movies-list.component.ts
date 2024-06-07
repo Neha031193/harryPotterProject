@@ -27,6 +27,7 @@ export class MoviesListComponent implements OnInit {
   moviesList: Movie[] = [];
   movieTitle: string = '';
   releaseYear: number | undefined;
+  erroMessage: string = '';
 
   constructor(private movieService: MovieService) {}
 
@@ -34,7 +35,12 @@ export class MoviesListComponent implements OnInit {
     this.movieService.getMoviesList().subscribe(
       (data) => {
         this.moviesList = data;
-      });
+      },
+      (err) => {
+        this.erroMessage = err.message;
+      }
+      );
+
   }
 
   ngOnInit(): void {
